@@ -22,6 +22,12 @@ public class TaxTechnicalTestCases {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
+    @Test
+    public void testBreadcrumbAbout() {
+        driver.findElement(By.xpath("//div[@id=\"header\"]/div/div/div/header/div[1]/div[1]/ul/li[1]/a")).click();
+        driver.findElement(By.xpath("//div[@id=\"content\"]/div/div[1]/div/div[1]/div/div/a")).click();
+        Assert.assertEquals("Check the breadcrumb in about","https://www.taxtechnical.ird.govt.nz/",driver.getCurrentUrl());
+    }
 
     @Test
     public void externalLinkIRMain() throws InterruptedException {
