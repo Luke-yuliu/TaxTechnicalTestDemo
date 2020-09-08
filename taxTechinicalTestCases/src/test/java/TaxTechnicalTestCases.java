@@ -70,7 +70,7 @@ System.out.println("found IR main website url = " + driver.getCurrentUrl());
     public void testBreadcrumb() {
         WebElement element = driver.findElement(By.cssSelector("[class = 'menu-tab'] [href ='/consultations']"));
         element.click();
-        WebElement breadCrumbLocator = driver.findElement(By.cssSelector("[id='content'] [title='Home']"));
+        WebElement breadCrumbLocator = driver.findElement(By.cssSelector("div.tt-parent-page > [title='Home']"));
         breadCrumbLocator.click();
         Assert.assertEquals("Check breadcrumb","https://www.taxtechnical.ird.govt.nz/",driver.getCurrentUrl());
     }
