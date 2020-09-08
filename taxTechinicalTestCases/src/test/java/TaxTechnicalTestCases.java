@@ -55,7 +55,7 @@ System.out.println("found IR main website url = " + driver.getCurrentUrl());
     @Test
     public void externalLinkTP() {
         String originalWindow = driver.getWindowHandle();
-        WebElement element = driver.findElement(By.cssSelector("li:nth-child(4)"));
+        WebElement element = driver.findElement(By.cssSelector("div.tp-header__desktop-menu a[title= 'IR Tax Policy']"));
         element.click();
         for (String windowHandle : driver.getWindowHandles()) {
             if (!originalWindow.contentEquals(windowHandle)) {
