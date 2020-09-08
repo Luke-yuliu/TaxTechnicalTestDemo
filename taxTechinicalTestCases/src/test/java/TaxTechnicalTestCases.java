@@ -39,7 +39,7 @@ public class TaxTechnicalTestCases {
 //        WebElement element = driver.findElement(By.xpath("/html//div[@id='header']/div[@class='row']/div//ul[@class='tp-text-links']//a[@title='IR main site']"));
 //        element.click();
         String originalWindow = driver.getWindowHandle();
-        WebElement element = driver.findElement(By.cssSelector("li:nth-child(3)"));
+        WebElement element = driver.findElement(By.cssSelector("[class = 'tp-header__main-links container'] li:nth-child(3)"));
         element.click();
         for (String windowHandle : driver.getWindowHandles()) {
             if (!originalWindow.contentEquals(windowHandle)) {
