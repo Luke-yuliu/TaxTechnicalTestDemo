@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,8 @@ public class TaxTechnicalTestCases {
 
     private WebDriver driver;
     private String url = "https://www.taxtechnical.ird.govt.nz/";
+
+
 
     @Before
     public void setUp() throws Exception {
@@ -24,28 +27,50 @@ public class TaxTechnicalTestCases {
 
     @Test
     public void testBreadcrumbAbout() {
-        driver.findElement(By.linkText("Consultation")).click();
+//        WebElement header = driver.findElement(By.id("header"));
+        driver.findElement(By.linkText("About")).click();
+//        WebElement content = driver.findElement(By.id("content"));
         driver.findElement(By.linkText("Tax Technical - Inland Revenue NZ")).click();
         Assert.assertEquals("Check the breadcrumb in about",url,driver.getCurrentUrl());
     }
 
     @Test
     public void externalLinkIRMain() throws InterruptedException {
-        WebElement element = driver.findElement(By.xpath("/html//div[@id='header']/div[@class='row']/div//ul[@class='tp-text-links']//a[@title='IR main site']"));
+//        WebElement element = driver.findElement(By.xpath("/html//div[@id='header']/div[@class='row']/div//ul[@class='tp-text-links']//a[@title='IR main site']"));
+//        element.click();
+        String originalWindow = driver.getWindowHandle();
+        WebElement element = driver.findElement(By.cssSelector("li:nth-child(3)"));
         element.click();
+        for (String windowHandle : driver.getWindowHandles()) {
+            if (!originalWindow.contentEquals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+System.out.println("found IR main website url = " + driver.getCurrentUrl());
+//        assertEquals("expecting IR main website return", "https://www.ird.govt.nz/",element.getAttribute("href"));
+
     }
 
     @Test
     public void externalLinkTP() {
-        WebElement element = driver.findElement(By.xpath("/html//div[@id='header']/div[@class='row']/div//ul[@class='tp-text-links']//a[@title='IR Tax Policy']"));
+        String originalWindow = driver.getWindowHandle();
+        WebElement element = driver.findElement(By.cssSelector("li:nth-child(4)"));
         element.click();
+        for (String windowHandle : driver.getWindowHandles()) {
+            if (!originalWindow.contentEquals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+        assertEquals("https://taxpolicy.ird.govt.nz/", driver.getCurrentUrl());
     }
 
     @Test
     public void testBreadcrumb() {
-        WebElement element = driver.findElement(By.xpath("/html//div[@id='header']//div[@role='menu']/div/div[3]/a[@href='/consultations']"));
+        WebElement element = driver.findElement(By.cssSelector("[class = 'menu-tab'] [href ='/consultations']"));
         element.click();
-        WebElement breadCrumbLocator = driver.findElement(By.xpath("/html//div[@id='content']/div[@class='row']/div[1]//a[@title='Home']"));
+        WebElement breadCrumbLocator = driver.findElement(By.cssSelector("[id='content'] [title='Home']"));
         breadCrumbLocator.click();
         Assert.assertEquals("Check breadcrumb","https://www.taxtechnical.ird.govt.nz/",driver.getCurrentUrl());
     }
