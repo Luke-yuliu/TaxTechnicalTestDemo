@@ -77,11 +77,11 @@ System.out.println("found IR main website url = " + driver.getCurrentUrl());
 
     @Test
     public void searchBestMatchResult() {
-        WebElement searchField = driver.findElement(By.xpath("//form[@id='search-form']//input[@name='tt-search-form__input']"));
+        WebElement searchField = driver.findElement(By.xpath("//form[@id='search-form']//input[@type='text']"));
         WebElement searchButton = driver.findElement(By.xpath("//form[@id='search-form']//button[@type='submit']"));
         searchField.sendKeys("My Tax");
         searchButton.click();
-        WebElement buttonField = driver.findElement(By.xpath("//div[@id=\"content\"]/div/section/div/div[1]/div[2]/div/button"));
+        WebElement buttonField = driver.findElement(By.xpath("//section[@class='tt-search-result']//button[contains(@class,'dropdown-toggle')]"));
         Assert.assertEquals("Search displays best match","Best match",buttonField.getText());
     }
 
