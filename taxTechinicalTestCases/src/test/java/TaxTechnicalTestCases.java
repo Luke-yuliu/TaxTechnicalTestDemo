@@ -7,7 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TaxTechnicalTestCases {
@@ -85,6 +87,19 @@ System.out.println("found IR main website url = " + driver.getCurrentUrl());
         Assert.assertEquals("Search displays best match","Best match",buttonField.getText());
     }
 
+
+    @Test
+    public void searchResultMatch() {
+        WebElement searchField = driver.findElement(By.xpath("//form[@id='search-form']//input[@type='text']"));
+        WebElement searchButton = driver.findElement(By.xpath("//form[@id='search-form']//button[@type='submit']"));
+        searchField.sendKeys("income tax");
+        searchButton.click();
+        List<WebElement> searchResutlList = driver.findElements(By.cssSelector("ul.tt-search-result-list div.tt-search-result-list__copy "));
+        for(WebElement resultList : searchResutlList){
+            assertTrue(resultList.getText().matches("(?i).*income.*"));
+            System.out.println("search results = " + resultList.getText());
+           }
+    }
 
     @After
     public void tearDown() throws Exception {
