@@ -1,3 +1,4 @@
+import com.taxtechnicaltestdemo.domainobject.AppEnv;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class TaxTechnicalTestCases {
 
     private WebDriver driver;
-    private String url = "https://www.taxtechnical.ird.govt.nz/";
+    private String url = AppEnv.getProdUrl();
 
 
 
